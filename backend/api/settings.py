@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # My apps
     'api.clients',
+    'api.accounts',
+
+    # Installed apps
     'rest_framework',
 ]
 
