@@ -4,7 +4,6 @@ from .serializers import ClientSerializer
 
 
 class ClientCreateAPIView(CreateAPIView):
-    print("========")
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
