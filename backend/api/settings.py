@@ -44,6 +44,11 @@ INSTALLED_APPS = [
 
     # Installed apps
     'rest_framework',
+
+
+    # ver futuramente se há necessidade de descomentar isso já tendo adcionado a variavel REST_FRAMEWORK
+    # 'rest_framework.authtoken',
+
 ]
 
 MIDDLEWARE = [
@@ -128,3 +133,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
