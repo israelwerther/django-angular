@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My apps
-    'api.clients',
     'api.accounts',
+    'api.clients',
+    'api.players',
 
     # Installed apps
     'rest_framework',
