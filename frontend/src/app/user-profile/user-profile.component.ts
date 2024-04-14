@@ -7,18 +7,18 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  clients: any[] = [];
+  players: any[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.fetchClients()
+    this.fetchPlayers()
   }
 
-  fetchClients() {
-    this.http.get<any[]>('http://127.0.0.1:8000/api/clients/list/').subscribe(clients => {
-      this.clients = clients;
-      console.log('this.clients::: ', this.clients);
+  fetchPlayers() {
+    this.http.get<any[]>('http://127.0.0.1:8000/api/players/list/').subscribe(players => {
+      this.players = players;
+      console.log('this.players::: ', this.players);
     });
   }
 
