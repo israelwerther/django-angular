@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import Chart from 'chart.js';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +11,7 @@ import Chart from 'chart.js';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+    shortContent = 'Ferro'
     private listTitles: any[];
     location: Location;
       mobile_menu_visible: any = 0;
@@ -152,4 +154,5 @@ export class NavbarComponent implements OnInit {
       }
       return 'Dashboard';
     }
+    
 }
