@@ -1,107 +1,107 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/base-fullscreen.html" %}
 
-{% block title %} Login {% endblock %} 
+{% block title %} Register {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
 
-  <div class="row">
-    <div class="col-md-5">
-      <div class="card">
-        <div class="card-header card-header-primary">
-          <h4 class="card-title">
-            Create Account
-          </h4>
+    <div class="content">
+        <div class="container">
+            <div class="row pt-5">
+                <div class="col-md-6 mt-5 offset-md-3 pt-5 mt-5">
+                    <div class="card">
+                        <div class="card-header text-center py-4">
+                            <h4 class="title">
+                                Sign UP
+                            </h4>
+
+                            <h6 class="card-category">
+                                {% if msg %}
+                                    <span class="text-danger">{{ msg | safe }}</span>
+                                {% else %}
+                                    <span>
+                                        Add your credentials
+                                    </span>
+                                {% endif %}  
+                            </h6>     
+
+                        </div>
+
+                        {% if success %}
+
+                            <div class="card-footer text-center">
+                                <a href="{% url 'login' %}" 
+                                   class="btn btn-fill btn-primary">Login</a>
+                            </div>
+
+                        {% else %}
+
+                            <form role="form" method="post" action="">
+            
+                                {% csrf_token %}
+
+                                <div class="card-body px-5 py-3">
+
+                                    <div class="row">
+                                        <div class="col-md-12 px-md-1">
+                                            <div class="form-group">
+                                                <label>Username</label>
+                                                {{ form.username }}
+                                            </div>
+                                            <span class="text-danger">{{ form.username.errors }}</span>
+                                        </div>
+
+                                        <div class="col-md-12 px-md-1">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                {{ form.email }}
+                                            </div>
+                                            <span class="text-danger">{{ form.email.errors }}</span>
+                                        </div>
+
+                                        <div class="col-md-12 px-md-1">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                {{ form.password1 }}
+                                            </div>
+                                            <span class="text-danger">{{ form.password1.errors }}</span>
+                                        </div>
+
+                                        <div class="col-md-12 px-md-1">
+                                            <div class="form-group">
+                                                <label>Password Check</label>
+                                                {{ form.password2 }}
+                                            </div>
+                                            <span class="text-danger">{{ form.password2.errors }}</span>
+                                        </div>                                        
+
+                                    </div>
+
+                                    
+                                </div>
+                                <div class="card-footer text-center">
+                                    <button type="submit" name="register" class="btn btn-fill btn-primary">Register</button>
+
+                                    <br /><br />
+                                    
+                                    <p>
+                                        Have an account? <a href="{% url 'login' %}" class="text-primary">Login</a>
+                                    </p> 
+                                </div>
+                            
+                            </form>
+
+                        {% endif %} 
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="card-body">
 
-          <h6 class="card-category">
-              {% if msg %}
-                <span class="text-danger">{{ msg | safe }}</span>
-              {% else %}
-                Add your credentials
-              {% endif %}  
-          </h6>
-          
-          <br />
-
-          {% if success %}
-
-            <p class="">
-              Please <a href="{% url 'login' %}" class="text-black text-small">authenticate</a> using the new account.
-            </p>  
-
-          {% else %}
-            <form role="form" method="post" action="">
-                
-              {% csrf_token %} 
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="bmd-label-floating">Username</label>
-                    {{ form.username }}
-                  </div>
-                </div>
-              </div>
-              <span class="text-danger">{{ form.username.errors }}</span>
-
-              <br />
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="bmd-label-floating">Email</label>
-                    {{ form.email }}
-                  </div>
-                </div>
-              </div>
-              <span class="text-danger">{{ form.email.errors }}</span>
-
-              <br />
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="bmd-label-floating">Password</label>
-                    {{ form.password1 }}
-                  </div>
-                </div>
-              </div>
-              <span class="text-danger">{{ form.password1.errors }}</span>
-
-              <br />
-
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="bmd-label-floating">Password Check</label>
-                    {{ form.password2 }}
-                  </div>
-                </div>
-              </div>
-              <span class="text-danger">{{ form.password2.errors }}</span>
-
-              <br />
-
-              <button type="submit" name="register" class="btn btn-primary pull-left">Register</button>
-
-              &nbsp; &nbsp; 
-              <span class="pull-right">
-                Have an account? <a href="{% url 'login' %}" class="text-primary">Login</a>
-              </span>
-
-              <div class="clearfix"></div>
-
-            </form>
-          {% endif %}
-
-        </div>
-      </div>
     </div>
-  </div>
 
 {% endblock content %}
 
