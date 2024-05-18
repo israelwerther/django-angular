@@ -2,9 +2,13 @@
 
 {% block title %} Players {% endblock %}
 
-<!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
-
+<style>
+  .table-responsive {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+</style>
 {% endblock stylesheets %}
 
 
@@ -22,14 +26,18 @@
             <table class="table tablesorter" id="playerTable">
               <thead class="text-primary">
                 <tr>
+                  <th class="text-center">#ID</th>
                   <th>Name</th>
-                  <th>Email</th>
+                  <th class="text-center">Online</th>
                 </tr>
               </thead>
               <tbody id="playerTableBody">
                 <tr v-for="player in players" :key="player.id">
+                  <td class="text-center">${ player.id }</td>
                   <td>${ player.name }</td>
-                  <td>${ player.email }</td>
+                  <td class="text-center">
+                    <i class="fas fa-circle text-success"></i>
+                  </td>
                 </tr>
                 <tr v-if="players.length === 0">
                   <td colspan="2">No players found.</td>
