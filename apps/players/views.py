@@ -14,9 +14,11 @@ class PlayerListAPIView(ListAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
+
 class PlayerUpdateAPIView(UpdateAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
+    
 
 class PlayerDeleteAPIView(DestroyAPIView):
     queryset = Player.objects.all()
