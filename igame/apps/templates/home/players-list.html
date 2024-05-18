@@ -1,99 +1,83 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Tables {% endblock %} 
+{% block title %} Players {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
 
 {% block content %}
 
-  <div class="content">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card ">
-          <div class="card-header">
-            <h4 class="card-title"> Players</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table tablesorter " id="">
-                <thead class=" text-primary">
-                  <tr>
-                    <th>
-                      Name
-                    </th>
-                    <th>
-                      Email
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Dakota Rice
-                    </td>
-                    <td>
-                      Niger
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Minerva Hooper
-                    </td>
-                    <td>
-                      Curaçao
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Sage Rodriguez
-                    </td>
-                    <td>
-                      Netherlands
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Philip Chaney
-                    </td>
-                    <td>
-                      Korea, South
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Doris Greene
-                    </td>
-                    <td>
-                      Malawi
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Mason Porter
-                    </td>
-                    <td>
-                      Chile
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Jon Porter
-                    </td>
-                    <td>
-                      Portugal
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Players</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table tablesorter" id="playerTable">
+              <thead class="text-primary">
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody id="playerTableBody">
+                <tr v-for="player in players" :key="player.id">
+                  <td>${ player.name }</td>
+                  <td>${ player.email }</td>
+                </tr>
+                <tr v-if="players.length === 0">
+                  <td colspan="2">No players found.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+
+{% block javascripts %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.min.js"></script>
+
+<script>
+
+  var app = new Vue({
+    delimiters: ['${', '}'],
+    el: '#app',
+    data: {
+			players: [],
+		},
+    mounted() {
+      this.fetchPlayers();
+    },
+    methods: {
+      fetchPlayers() {
+        axios.get('{% url "player-list" %}')
+          .then(response => {
+            this.players = response.data;
+            console.log(this.players); // adicione esta linha
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    }
+  });
+  
+  </script>
+  
+{% endblock javascripts %}
