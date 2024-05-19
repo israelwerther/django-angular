@@ -14,6 +14,6 @@ urlpatterns = [
     # path('players/', include('apps.players.urls')),
 
     # Leave `Home.Urls` as last the last line
-    path('api/', include('apps.players.urls')),
+    path('api/v1/', include('core.api_urls')),
     path("", include("apps.home.urls")),
 ]

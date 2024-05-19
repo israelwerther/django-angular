@@ -74,10 +74,9 @@
     },
     methods: {
       fetchPlayers() {
-        axios.get('{% url "player-list" %}')
+        axios.get('{% url "api:players-list" %}')
           .then(response => {
             this.players = response.data;
-            console.log(this.players); // adicione esta linha
           })
           .catch(error => {
             console.error(error);
