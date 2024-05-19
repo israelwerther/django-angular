@@ -231,8 +231,25 @@ Black Dashboard is a premium [Bootstrap](https://www.admin-dashboards.com/bootst
 [Black Dashboard Django](https://www.creative-tim.com/product/black-dashboard-django) - Provided by [Creative Tim](https://www.creative-tim.com/) and [AppSeed](https://appseed.us).
 
 # Commit Types
-
 Here are the different types of commits that can be used to maintain a clear and organized history in your project:
+
+##
+
+### `feat`
+### `fix`
+### `docs`
+### `test`
+### `build`
+### `perf`
+### `style`
+### `refactor`
+### `chore`
+### `ci`
+### `raw`
+### `cleanup`
+### `remove`
+
+##
 
 ### `feat`
 Commits of type `feat` indicate that your code is adding a new feature (related to MINOR in semantic versioning).
