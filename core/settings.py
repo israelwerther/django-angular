@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # My apps
-    'apps.players'
+    'apps.players',
+    'apps.resources',
 ]
 
 MIDDLEWARE = [
