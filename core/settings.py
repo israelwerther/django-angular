@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
     'rest_framework',
+    'django_lifecycle',
 
     # My apps
     'apps.players',

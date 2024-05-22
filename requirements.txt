@@ -11,3 +11,4 @@ whitenoise==5.3.0
 django-environ==0.8.1
 djangorestframework==3.15.1
 psycopg2-binary==2.9.9
+django-lifecycle==1.2.3
