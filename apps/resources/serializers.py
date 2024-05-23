@@ -4,4 +4,4 @@ from .models import Iron
 class IronSerializer(serializers.ModelSerializer):
     class Meta:
         model = Iron
-        fields = ('id', 'quantity')
+        fields = ('id', 'quantity', 'created_at', 'updated_at')

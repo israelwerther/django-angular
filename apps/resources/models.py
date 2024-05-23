@@ -1,6 +1,7 @@
 from django.db import models
+from apps.common.models import BaseModel
 
-class Iron(models.Model):
+class Iron(BaseModel):
     player = models.OneToOneField('players.Player', on_delete=models.CASCADE, related_name='+', null=True, blank=True)
     quantity = models.IntegerField(default=0)
     
