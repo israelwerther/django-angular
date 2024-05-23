@@ -1,7 +1,8 @@
 from django.db import models
 from apps.resources.models import Iron
+from apps.common.models import BaseModel
 
-class Player(models.Model):
+class Player(BaseModel):
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     email = models.EmailField()
