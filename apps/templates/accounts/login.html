@@ -12,7 +12,6 @@
             <div class="row pt-5">
                 <div class="col-md-6 mt-5 offset-md-3 pt-5 mt-5">
                     <div class="card">
-                        
                         <div class="card-header text-center py-4">
                             <h4 class="title">
                                 Sign IN
@@ -39,14 +38,18 @@
                                     <div class="col-md-12 px-md-1">
                                         <div class="form-group">
                                             <label>Username</label>
-                                            {{ form.username }}
+                                            <br>
+                                            {% comment %} {{ form.username }} {% endcomment %}
+                                            <input type="text" name="username" value="israel">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12 px-md-1">
                                         <div class="form-group">
                                             <label>Password</label>
-                                            {{ form.password }}
+                                            <br>
+                                            {% comment %} {{ form.password }} {% endcomment %}
+                                            <input type="password" name="password" value="0148Mis@">
                                         </div>
                                     </div>
                                 </div>
