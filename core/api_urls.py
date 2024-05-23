@@ -11,8 +11,10 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-router.register('players', PlayerModelViewSet,  basename='players')
-router.register('resources/iron', IronModelViewSet,  basename='resources')
+router.register('players', PlayerModelViewSet, basename='players')
+
+# Resources
+router.register('resources/iron', IronModelViewSet, basename='resources')
 
 app_name = 'api'
 

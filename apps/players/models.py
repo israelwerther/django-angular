@@ -1,6 +1,7 @@
 from django.db import models
 from apps.resources.models import Iron
 from apps.common.models import BaseModel
+from datetime import datetime, timedelta
 
 class Player(BaseModel):
     name = models.CharField(max_length=100)
@@ -16,3 +17,13 @@ class Player(BaseModel):
 
     def __str__(self):
         return self.name
+    
+    def get_current_iron(self):
+        if not self.iron:
+            return 0
+
+        time_diff = datetime.now(tz=self.iron.updated_at.tzinfo) - self.iron.updated_at
+        iron_per_second = 1
+        generated_iron = int(time_diff.total_seconds() * iron_per_second)
+
+        return self.iron.quantity + generated_iron
