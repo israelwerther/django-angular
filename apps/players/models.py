@@ -5,6 +5,7 @@ from apps.common.models import BaseModel
 from datetime import datetime, timedelta
 
 class Player(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='players')
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     email = models.EmailField()

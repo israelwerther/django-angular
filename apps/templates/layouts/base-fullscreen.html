@@ -47,7 +47,7 @@
         {% if request.user.is_authenticated %}
             {% include 'includes/navigation-fullscreen.html' %}
         {% endif %}
-        <div class="container-fluid">
+        <div class="container-fluid" id="app">
 
             {% block content %}{% endblock content %}
 
