@@ -14,50 +14,107 @@
 
 {% block content %}
 
-    <div class="content">
-        <div class="container">
-            <div class="row pt-5">
-                <div class="col-md-6 mt-5 offset-md-3 pt-5 mt-5">
-                    <div class="card">                        
-                        <div class="card-header">
-                            <h4 class="card-title"> Simple Table</h4>
-                          </div>
-                          <div class="card-body">
-                            <div class="table-responsive">
-                              <table class="table tablesorter " id="">
-                                <thead class=" text-primary">
-                                  <tr>
-                                    <th>
-                                      Name
-                                    </th>
-                                    <th>
-                                      Country
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>
-                                      Dakota Rice
-                                    </td>
-                                    <td>
-                                      Niger
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                      
-                    </div>
-                </div>
-
-            </div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Players</h4>
         </div>
-
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table tablesorter" id="playerTable">
+              <thead class="text-primary">
+                <tr>
+                  <th class="text-center">#ID</th>
+                  <th>Name</th>
+                  <th class="text-center">Online</th>
+                </tr>
+              </thead>
+              <tbody id="playerTableBody">
+                <tr v-for="player in players" :key="player.id">
+                  <td class="text-center">${ player.id }</td>
+                  <td>${ player.name }</td>
+                  <td class="text-center">
+                    <i class="fas fa-circle text-success"></i>
+                  </td>
+                </tr>
+                <tr v-if="players.length === 0">
+                  <td colspan="2">No players found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+
+{% block javascripts %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.min.js"></script>
+
+<script>
+
+  var app = new Vue({
+    delimiters: ['${', '}'],
+    el: '#app',
+    data: {
+			players: [],
+      newPlayer: {
+        user: null,
+        name: '',
+        username: '',
+        email: '',
+        iron: {
+          quantity: 0
+        }
+      }
+		},
+    mounted() {
+      this.fetchPlayers();
+    },
+    methods: {
+      fetchPlayers() {
+        axios.get('{% url "api:players-list" %}')
+          .then(response => {
+            this.players = response.data;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      },
+      createPlayer() {
+        axios.post('{% url "api:players-create" %}', this.newPlayer)
+          .then(response => {
+            // Adiciona o novo jogador à lista de jogadores
+            this.players.push(response.data);
+      
+            // Limpa o formulário
+            this.newPlayer = {
+              name: '',
+              username: '',
+              email: '',
+              iron: {
+                quantity: 0
+              },
+              user: null
+            };
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+      
+    }
+  });
+  
+  </script>
+  
+{% endblock javascripts %}
