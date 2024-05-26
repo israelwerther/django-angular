@@ -6,11 +6,16 @@ from apps.common.models import BaseModel
 from datetime import datetime, timedelta
 
 class Player(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='players')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='players', null=True, blank=True)
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     email = models.EmailField()
-    iron = models.OneToOneField(Iron, on_delete=models.CASCADE, related_name='player_iron', null=True, blank=True)
+    iron = models.OneToOneField(
+        Iron, on_delete=models.CASCADE, 
+        related_name='player_iron', 
+        null=True, 
+        blank=True
+    )
 
     def __str__(self):
         return self.name
@@ -31,4 +36,5 @@ class Player(BaseModel):
             iron_obj = Iron.objects.create(player=instance)
             instance.iron = iron_obj
             instance.save()
+            
     
