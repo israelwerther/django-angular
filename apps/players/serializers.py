@@ -4,11 +4,11 @@ from apps.resources.serializers import IronSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 class PlayerSerializer(WritableNestedModelSerializer):
-    iron = IronSerializer(required=False)
+    # iron = IronSerializer(required=False)
 
     class Meta:
         model = Player
-        fields = ('id', 'name', 'username', 'email', 'iron', 'created_at', 'updated_at', 'get_current_iron', 'user')
+        fields = ('id', 'name', 'username', 'email',  'created_at', 'updated_at', 'get_current_iron', 'user')
 
     # def create(self, validated_data):
     #     iron_data = validated_data.pop('iron', None)
