@@ -47,6 +47,30 @@
           </div>
         </div>
       </div>
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Create Player</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" id="csrf-token">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" v-model="newPlayer.name">
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" v-model="newPlayer.username">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" v-model="newPlayer.email">
+            </div>
+            <button type="submit" class="btn btn-primary" @click.prevent="createPlayer()">Create</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -68,6 +92,11 @@
     el: '#app',
     data: {
 			players: [],
+      newPlayer: {
+        name: '',
+        username: '',
+        email: ''
+      }
 		},
     mounted() {
       this.fetchPlayers();
@@ -77,6 +106,23 @@
         axios.get('{% url "api:players-list" %}')
           .then(response => {
             this.players = response.data;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      },
+      createPlayer() {
+        axios.post('{% url "api:players-list" %}', this.newPlayer)
+          .then(response => {
+            // Adiciona o novo jogador à lista de jogadores
+            this.players.push(response.data);
+      
+            // Limpa o formulário
+            this.newPlayer = {
+              name: '',
+              username: '',
+              email: ''
+            };
           })
           .catch(error => {
             console.error(error);
