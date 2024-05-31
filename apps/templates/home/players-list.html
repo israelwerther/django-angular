@@ -54,7 +54,7 @@
         <div class="card-body">
           <form method="POST">
             {% csrf_token %}
-            <input type="hidden" id="csrf-token">
+            <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name" v-model="newPlayer.name">
@@ -81,25 +81,26 @@
 
 {% block javascripts %}
 
-
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-
   var app = new Vue({
     delimiters: ['${', '}'],
     el: '#app',
     data: {
-			players: [],
+      players: [],
       newPlayer: {
         name: '',
         username: '',
-        email: ''
-      }
-		},
+        email: '',
+        user: 1
+      },
+      token: document.querySelector('#csrf-token').value
+    },
     mounted() {
       this.fetchPlayers();
+      axios.defaults.headers.common['X-CSRFToken'] = this.token;
     },
     methods: {
       fetchPlayers() {
@@ -116,7 +117,7 @@
           .then(response => {
             // Adiciona o novo jogador à lista de jogadores
             this.players.push(response.data);
-      
+    
             // Limpa o formulário
             this.newPlayer = {
               name: '',
@@ -130,7 +131,6 @@
       }
     }
   });
-  
-  </script>
+</script>
   
 {% endblock javascripts %}
