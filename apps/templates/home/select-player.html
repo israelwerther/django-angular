@@ -14,8 +14,44 @@
 
 {% block content %}
 
-<div class="content">
-  <div class="row">
+<div class="content">  
+  <div class="row pt-5">
+    <div class="col-md-6 mt-5 offset-md-3 pt-5 mt-5">
+      <div class="card">
+        <div class="card-body">
+          <blockquote>
+            <div class="card-header">
+              <h4 class="card-title"> Players</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table tablesorter" id="playerTable">
+                  <thead class="text-primary">
+                    <tr>
+                      <th>Name</th>
+                      <th class="text-center">Online</th>
+                    </tr>
+                  </thead>
+                  <tbody id="playerTableBody">
+                    <tr v-for="player in players" :key="player.id">
+                      <td class="text-center">${player.name}</td>
+                      <td class="text-center">
+                        <button type="submit" class="btn btn-primary" @click="selectPlayer(player)">Play</button>
+                      </td>
+                    </tr>
+                    <tr v-if="players.length === 0">
+                      <td colspan="2">No players found.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>    
+            </div>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %} <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -74,7 +110,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> {% endcomment %}
 </div>
 
 {% endblock content %}
@@ -100,6 +136,7 @@
         email: ''
       }
 		},
+    selectedPlayer: null,
     mounted() {
       this.fetchPlayers();
     },
@@ -129,11 +166,20 @@
           .catch(error => {
             console.error(error);
           });
+      },
+      selectPlayer(player) {
+        axios.get(player.urls.select)
+          .then(response => {
+              console.log('response.data::: ', response.data);
+              this.player = response.data;
+          })
+          .catch(error => {
+              console.error(error);
+          });
       }
-      
     }
   });
   
-  </script>
+</script>
   
 {% endblock javascripts %}

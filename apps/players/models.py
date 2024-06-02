@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from django_lifecycle import hook
 from apps.resources.models import Iron
 from apps.common.models import BaseModel
@@ -36,5 +37,11 @@ class Player(BaseModel):
             iron_obj = Iron.objects.create(player=instance)
             instance.iron = iron_obj
             instance.save()
+
+    @property
+    def urls(self): 
+        return {
+            "select": reverse("api:players-select-player", kwargs={ "pk": self.id })
+        }
             
     

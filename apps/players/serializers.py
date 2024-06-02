@@ -1,3 +1,4 @@
+from django.forms import JSONField
 from rest_framework import serializers
 from .models import Player, Iron
 from apps.resources.serializers import IronSerializer
@@ -6,9 +7,13 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 class PlayerSerializer(WritableNestedModelSerializer):
     # iron = IronSerializer(required=False)
 
+    urls = JSONField()
     class Meta:
         model = Player
-        fields = ('id', 'name', 'username', 'email',  'created_at', 'updated_at', 'get_current_iron', 'user')
+        fields = (
+            'id', 'name', 'username', 'email',  'created_at', 'updated_at', 'get_current_iron', 'user', 'urls'
+        )
+    
 
     # def create(self, validated_data):
     #     iron_data = validated_data.pop('iron', None)
