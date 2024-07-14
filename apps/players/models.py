@@ -1,13 +1,13 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from core import settings
 from django_lifecycle import hook
 from apps.resources.models import Iron
 from apps.common.models import BaseModel
 from datetime import datetime, timedelta
 
 class Player(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='players', null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='players', null=True, blank=True)
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     email = models.EmailField()

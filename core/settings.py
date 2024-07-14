@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # My apps
     'apps.common',
+    'apps.accounts',
     'apps.players',
     'apps.resources',
     # 'django_lifecycle',
@@ -162,6 +163,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
 }
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #############################################################
