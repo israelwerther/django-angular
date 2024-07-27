@@ -16,10 +16,15 @@ class PlayerModelViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
 
+    # def get_queryset(self):
+    #     return Player.objects.filter(user=self.request.user)
+
     @action(detail=True, methods=['get'])
     def select_player(self, request, pk=None):
-        print(f"==>> self: {self.request}")
-        player = self.get_object()
+        player = self.get_object()        
+        user = request.user
+        user.current_player = player
+        user.save()
         serializer = self.get_serializer(player)
         return Response(serializer.data)
 
