@@ -9,15 +9,12 @@
                             <span class="navbar-toggler-bar bar3"></span>
                         </button>
                     </div>
-                    <a class="navbar-brand">
-                        Player 
-                    </a>
-                    <a class="navbar-brand" href="javascript:void(0)">{{user.first_name}}</a>
+                    {% comment %} <a class="navbar-brand" href="javascript:void(0)">Dashboard</a> {% endcomment %}
                     <ul class="navbar-nav d-lg-none">
                         <li class="nav-item">                
                             <img src="/static/assets/img/resources/iron.jpeg" alt="Ferro" style="width: 40px; height: 40px;" title="Ferro" data-toggle="popover" 
                               data-trigger="hover" popoverPlacement="top" data-placement="top" data-content="Texto do Popover" >
-                            <p class="small-text">1000</p>
+                            {% comment %} <p class="small-text">{{user.current_player}}</p> {% endcomment %}
                         </li>
                       </ul>
                 </div>
@@ -26,7 +23,7 @@
                       <li class="nav-item d-none d-lg-block">
                           <img src="/static/assets/img/resources/iron.jpeg" alt="Ferro" style="width: 40px; height: 40px;" title="Ferro" data-toggle="popover" 
                             data-trigger="hover" popoverPlacement="top" data-placement="top" data-content="Texto do Popover" >
-                          <p class="small-text">1000</p>
+                          <p class="small-text">{{user.current_player.get_current_iron}}</p>
                       </li>
                     </ul>
                   </div>
