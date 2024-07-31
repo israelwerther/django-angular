@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.players',
     'apps.resources',
+    'apps.planets',
     # 'django_lifecycle',
 ]
 
