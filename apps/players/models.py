@@ -1,8 +1,10 @@
 from django.db import models
 from django.urls import reverse
+# from apps.planets.models import Planet
 from core import settings
 from django_lifecycle import hook
 from apps.resources.models import Iron
+# from apps.planets.models import Planet
 from apps.common.models import BaseModel
 from datetime import datetime, timedelta
 
@@ -37,6 +39,13 @@ class Player(BaseModel):
             iron_obj = Iron.objects.create(player=instance)
             instance.iron = iron_obj
             instance.save()
+
+    @hook('after_save')
+    def create_home_planet(instance, **kwargs):
+        if instance.pk is not None and not instance.planets.exists():
+            from apps.planets.models import Planet
+            Planet.objects.create(player=instance, name="Home Planet", home_planet=True)
+    
 
     @property
     def urls(self): 
