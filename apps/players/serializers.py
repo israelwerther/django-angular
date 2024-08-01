@@ -5,8 +5,6 @@ from apps.resources.serializers import IronSerializer
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 class PlayerSerializer(WritableNestedModelSerializer):
-    # iron = IronSerializer(required=False)
-
     urls = JSONField()
     class Meta:
         model = Player
