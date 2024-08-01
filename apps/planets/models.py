@@ -1,6 +1,5 @@
 from django.db import models
 from apps.common.models import BaseModel
-# from apps.players.models import Player
 from apps.resources.models import Iron
 from django_lifecycle import hook
 
