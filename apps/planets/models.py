@@ -14,8 +14,8 @@ class Planet(BaseModel):
     @hook('after_save')
     def create_iron_for_planet(instance, **kwargs):
         if instance.pk is not None and instance.iron is None:
-            iron_obj = Iron.objects.create()  # Cria um Iron sem associá-lo diretamente
-            instance.iron = iron_obj  # Associa o Iron ao planeta
+            iron_obj = Iron.objects.create()
+            instance.iron = iron_obj
             instance.save()
 
 
