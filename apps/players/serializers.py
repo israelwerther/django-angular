@@ -11,7 +11,7 @@ class PlayerSerializer(WritableNestedModelSerializer):
     class Meta:
         model = Player
         fields = (
-            'id', 'name', 'username', 'email',  'created_at', 'updated_at', 'get_current_iron', 'user', 'urls'
+            'id', 'name', 'username', 'email',  'created_at', 'updated_at', 'user', 'urls'
         )
     
 
