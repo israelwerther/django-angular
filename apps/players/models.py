@@ -2,9 +2,7 @@ from django.db import models
 from django.urls import reverse
 from core import settings
 from django_lifecycle import hook
-from apps.resources.models import Iron
 from apps.common.models import BaseModel
-from datetime import datetime
 
 class Player(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='players', null=True, blank=True)
