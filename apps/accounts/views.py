@@ -13,12 +13,4 @@ from rest_framework.response import Response
 class UserModelViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    @action(detail=True, methods=['get'])
-    def select_planet(self, request, pk=None):
-        planet = self.get_object()        
-        user = request.user
-        user.current_planet = planet
-        user.save()
-        serializer = self.get_serializer(planet)
-        return Response(serializer.data)
+    
