@@ -170,7 +170,6 @@
       selectPlayer(player) {
         axios.get(player.urls.select)
           .then(response => {
-              console.log('response.data::: ', response.data);
               this.player = response.data;
               window.location.href = "/";
           })

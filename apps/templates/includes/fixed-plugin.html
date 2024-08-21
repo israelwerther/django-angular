@@ -1,35 +1,91 @@
 <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-        <a href="#" data-toggle="dropdown">
-            <i class="fa fa-cog fa-2x"> </i>
+  <div class="dropdown show-dropdown">
+    <a href="#" data-toggle="dropdown">
+      <i class="fa fa-cog fa-2x"> </i>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="header-title">Sidebar Background</li>
+      <li class="adjustments-line">
+        <a href="javascript:void(0)" class="switch-trigger background-color">
+          <div class="badge-colors text-center">
+            <span class="badge filter badge-primary active" data-color="primary"></span>
+            <span class="badge filter badge-info" data-color="blue"></span>
+            <span class="badge filter badge-success" data-color="green"></span>
+          </div>
+          <div class="clearfix"></div>
         </a>
-        <ul class="dropdown-menu">
-            <li class="header-title"> Sidebar Background</li>
-            <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger background-color">
-                    <div class="badge-colors text-center">
-                        <span class="badge filter badge-primary active" data-color="primary"></span>
-                        <span class="badge filter badge-info" data-color="blue"></span>
-                        <span class="badge filter badge-success" data-color="green"></span>
-                    </div>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li class="adjustments-line text-center color-change">
-                <span class="color-label">LIGHT MODE</span>
-                <span class="badge light-badge mr-2"></span>
-                <span class="badge dark-badge ml-2"></span>
-                <span class="color-label">DARK MODE</span>
-            </li>
-            <li class="button-container">
-                <a href="https://www.creative-tim.com/product/black-dashboard-django" target="_blank"
-                   class="btn btn-primary btn-block btn-round">Download</a>
+      </li>
+      <li class="adjustments-line text-center color-change">
+        <span class="color-label">LIGHT MODE</span>
+        <span class="badge light-badge mr-2"></span>
+        <span class="badge dark-badge ml-2"></span>
+        <span class="color-label">DARK MODE</span>
+      </li>
+      <li class="button-container">
+        <a href="https://www.creative-tim.com/product/black-dashboard-django" target="_blank" class="btn btn-primary btn-block btn-round">Download</a>
 
-                <a href="https://www.creative-tim.com/support"
-                   target="_blank" class="btn btn-default btn-block btn-round">
-                    Support
-                </a>
-            </li>
-        </ul>
-    </div>
+        <a href="https://www.creative-tim.com/support" target="_blank" class="btn btn-default btn-block btn-round"> Support </a>
+      </li>
+      <div>
+        <div v-if="selectedPlayer">
+          <h2>${ selectedPlayer.name }</h2>
+          <div v-if="selectedPlayer.planets.length > 0">
+            <h3>Planets</h3>
+            <ul>
+              <li v-for="planet in selectedPlayer.planets" :key="planet.id">
+                <a href="#" @click.prevent="selectPlanet(planet)">${ planet.name }</a>
+              </li>
+            </ul>
+            <div v-if="selectedPlanet">
+              <h4>Selected Planet: ${ selectedPlanet.name }</h4>
+              <p>Iron: ${ selectedPlanet.iron.current_iron }</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
 </div>
+
+{% block javascripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.min.js"></script>
+
+<script>
+  var fixedPlugin = new Vue({
+    delimiters: ["${", "}"],
+    el: "#fixedPlugin",
+    data: {
+      players: [],
+      selectedPlayer: null,
+      selectedPlanet: null,
+    },
+    mounted() {
+      this.fetchCurrentPlayer();
+    },
+    methods: {
+      fetchCurrentPlayer() {
+        axios
+          .get('{% url "api:users-list" %}')
+          .then((response) => {
+            this.players = response.data;
+            if (this.players.length > 0) {
+              this.selectedPlayer = this.players[0].current_player;
+              if (this.selectedPlayer.planets.length > 0) {
+                this.selectedPlanet = this.selectedPlayer.planets[0];
+              }
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      },
+      selectPlanet(planet) {
+        this.selectedPlanet = planet;
+      },
+    },
+  });
+</script>
+
+{% endblock javascripts %}
