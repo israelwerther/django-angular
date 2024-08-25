@@ -43,24 +43,23 @@
 </head>
 <body class="">
 
-    <div id="app">
-        <div class="wrapper">
-    
-            {% include 'includes/sidebar.html' %}
-    
-            <div class="main-panel" >
-    
-                {% include 'includes/navigation.html' %}
-    
-                {% block content %}{% endblock content %}
-    
-                {% include 'includes/footer.html' %}
-    
-            </div>
-        </div>
-        {% include 'includes/fixed-plugin.html' %}
+    <div class="wrapper">
 
+        {% include 'includes/sidebar.html' %}
+
+        <div class="main-panel" id="app">
+
+            {% include 'includes/navigation.html' %}
+
+            {% block content %}{% endblock content %}
+
+            {% include 'includes/footer.html' %}
+
+        </div>
     </div>
+
+    
+    {% include 'includes/fixed-plugin.html' %}
     
 
     {% include 'includes/scripts.html' %}

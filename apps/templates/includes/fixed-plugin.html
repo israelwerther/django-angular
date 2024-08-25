@@ -26,7 +26,7 @@
 
         <a href="https://www.creative-tim.com/support" target="_blank" class="btn btn-default btn-block btn-round"> Support </a>
       </li>
-      <div>
+      {% comment %} <div>
         <div v-if="selectedPlayer">
           <h2>${ selectedPlayer.name }</h2>
           <div v-if="selectedPlayer.planets.length > 0">
@@ -42,20 +42,20 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
     </ul>
   </div>
 </div>
 
-{% block javascripts %}
+{% comment %} {% block javascripts %}
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.min.js"></script>
 
 <script>
-  var app = new Vue({
+  var fixedPlugin = new Vue({
     delimiters: ["${", "}"],
-    el: "#app",
+    el: "#fixedPlugin",
     data: {
       players: [],
       selectedPlayer: null,
@@ -88,4 +88,4 @@
   });
 </script>
 
-{% endblock javascripts %}
+{% endblock javascripts %} {% endcomment %}
