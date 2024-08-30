@@ -1,0 +1,99 @@
+{% extends "layouts/base.html" %} {% block title %} Players {% endblock %} {% block stylesheets %}
+<style>
+  .table-responsive {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+</style>
+{% endblock stylesheets %} {% block content %}
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Simple Table</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table tablesorter" id="">
+              <thead class="text-primary">
+                <tr>
+                  <th class="text-center">ID</th>
+                  <th>Name</th>
+                  <th>Iron</th>
+                  <th>Home Planet</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="planet in planets" :key="planet.id">
+                  <td>${planet.id}</td>
+                  <td>${planet.name}</td>
+                  <td>${planet.iron.current_iron}</td>
+                  <td>${planet.home_planet ? "planeta natal" : ""}</td>
+                  <td><button class="btn" @click="setPlanet(planet)">Select Planet</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-if="selectedPlanet">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title">${selectedPlanet.name}</h5>
+            <p class="category"><a href="">${selectedPlanet}</a></p>
+            <p class="category"><a href="">${selectedPlanet.iron.current_iron}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+  var app = new Vue({
+    delimiters: ["${", "}"],
+    el: "#app",
+    data: {
+      planets: [],
+      selectedPlanet: null,
+    },
+    mounted() {
+      this.fetchPlayerPlanets();
+    },
+    methods: {
+      fetchPlayerPlanets(id) {
+        axios
+          .get('{% url "api:users-list" %}')
+          .then((response) => {
+            this.planets = response.data[0].current_player.planets;
+            console.log("response::: ", this.planets);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      },
+      setPlanet(planet) {
+        this.selectedPlanet = planet;
+        console.log('Selected Planet:', this.selectedPlanet);
+      }
+    },
+  });
+</script>
+
+{% endblock javascripts %}
