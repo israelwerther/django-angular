@@ -32,7 +32,7 @@
                   <td>${planet.name}</td>
                   <td>${planet.iron.current_iron}</td>
                   <td>${planet.home_planet ? "planeta natal" : ""}</td>
-                  <td><button class="btn" @click="setPlanet(planet)">Select Planet</button></td>
+                  <td><button class="btn" @click="selectPlanet(planet)">Select Planet</button></td>
                 </tr>
               </tbody>
             </table>
@@ -82,15 +82,13 @@
           .get('{% url "api:users-list" %}')
           .then((response) => {
             this.planets = response.data[0].current_player.planets;
-            console.log("response::: ", this.planets);
           })
           .catch((error) => {
             console.error(error);
           });
       },
-      setPlanet(planet) {
+      selectPlanet(planet) {
         this.selectedPlanet = planet;
-        console.log('Selected Planet:', this.selectedPlanet);
       }
     },
   });

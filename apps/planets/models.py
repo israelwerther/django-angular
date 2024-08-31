@@ -8,7 +8,6 @@ class Planet(BaseModel):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='planets')
     name = models.CharField(max_length=100)
     home_planet = models.BooleanField(default=False)
-    # Iron usando iron.planet_iron. Isso é útil e geralmente uma boa prática
     iron = models.OneToOneField(Iron, on_delete=models.CASCADE, related_name='planet_iron', null=True, blank=True)
 
     @hook('after_save')

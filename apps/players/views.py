@@ -27,24 +27,3 @@ class PlayerModelViewSet(viewsets.ModelViewSet):
         user.save()
         serializer = self.get_serializer(player)
         return Response(serializer.data)
-
-
-    # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    # permission_classes = [IsAuthenticated]
-
-
-    # model = Player
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
-
-
-
-    # @action(detail=False, methods=["GET"])
-    # def list_users(self,request, pk=None):
-        
-    #     return Response(
-    #         data=PlayerSerializer(
-    #             instance=self.get_queryset(), 
-    #             many=True
-    #         ).data
-    #     )
