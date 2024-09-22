@@ -9,5 +9,5 @@ class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = (
-            'id', 'name', 'username', 'email', 'created_at', 'updated_at', 'user', 'urls', 'planets'
+            'id', 'name', 'username', 'email', 'created_at', 'updated_at', 'user', 'urls', 'planets', 'current_planet'
         )

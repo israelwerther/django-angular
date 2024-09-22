@@ -7,4 +7,4 @@ class PlanetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Planet
-        fields = ('id', 'name', 'home_planet', 'iron')
+        fields = ('id', 'name', 'home_planet', 'iron', 'urls')

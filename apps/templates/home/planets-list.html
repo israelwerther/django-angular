@@ -12,7 +12,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Simple Table</h4>
+          <h4 class="card-title">My Planets</h4>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -31,8 +31,8 @@
                   <td>${planet.id}</td>
                   <td>${planet.name}</td>
                   <td>${planet.iron.current_iron}</td>
-                  <td>${planet.home_planet ? "planeta natal" : ""}</td>
-                  <td><button class="btn" @click="selectPlanet(planet)">Select Planet</button></td>
+                  <td>${planet.home_planet ? "Home Planet" : ""}</td>
+                  <td><button class="btn" @click="currentPlanet(planet)">Select Planet</button></td>
                 </tr>
               </tbody>
             </table>
@@ -72,6 +72,7 @@
     data: {
       planets: [],
       selectedPlanet: null,
+      planet: [],
     },
     mounted() {
       this.fetchPlayerPlanets();
@@ -89,7 +90,18 @@
       },
       selectPlanet(planet) {
         this.selectedPlanet = planet;
-      }
+      },
+      currentPlanet(planet) {
+        axios
+          .get(planet.urls.select)
+          .then((response) => {
+            this.selectedPlanet = response.data;
+
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      },
     },
   });
 </script>
