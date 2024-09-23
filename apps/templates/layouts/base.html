@@ -37,30 +37,29 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ ASSETS_ROOT }}/demo/demo.css" rel="stylesheet"/>
 
-    <!-- Specific Page CSS goes HERE  -->
-    {% block stylesheets %}{% endblock stylesheets %}
         
 </head>
 <body class="">
 
-    <div class="wrapper">
+    <div id="app">
+        <div class="wrapper">
 
-        {% include 'includes/sidebar.html' %}
+            {% include 'includes/sidebar.html' %}
 
-        <div class="main-panel" id="app">
+            <div class="main-panel">
 
-            {% include 'includes/navigation.html' %}
+                {% include 'includes/navigation.html' %}
 
-            {% block content %}{% endblock content %}
+                {% block content %}{% endblock content %}
 
-            {% include 'includes/footer.html' %}
+                {% include 'includes/footer.html' %}
 
+            </div>
         </div>
+        
+        {% include 'includes/fixed-plugin.html' %}
+    
     </div>
-
-    
-    {% include 'includes/fixed-plugin.html' %}
-    
 
     {% include 'includes/scripts.html' %}
 

@@ -21,28 +21,52 @@
         <span class="badge dark-badge ml-2"></span>
         <span class="color-label">DARK MODE</span>
       </li>
-      <li class="button-container">
-        <a href="https://www.creative-tim.com/product/black-dashboard-django" target="_blank" class="btn btn-primary btn-block btn-round">Download</a>
-
-        <a href="https://www.creative-tim.com/support" target="_blank" class="btn btn-default btn-block btn-round"> Support </a>
-      </li>
-      {% comment %} <div>
-        <div v-if="selectedPlayer">
-          <h2>${ selectedPlayer.name }</h2>
-          <div v-if="selectedPlayer.planets.length > 0">
-            <h3>Planets</h3>
-            <ul>
-              <li v-for="planet in selectedPlayer.planets" :key="planet.id">
-                <a href="#" @click.prevent="selectPlanet(planet)">${ planet.name }</a>
-              </li>
-            </ul>
-            <div v-if="selectedPlanet">
-              <h4>Selected Planet: ${ selectedPlanet.name }</h4>
-              <p>Iron: ${ selectedPlanet.iron.current_iron }</p>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">My Planets</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table tablesorter" id="">
+                  <thead class="text-primary">
+                    <tr>
+                      <th class="text-center">ID</th>
+                      <th>Name</th>
+                      <th>Iron</th>                      
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="planet in planets" :key="planet.id">
+                      <td>${planet.id}</td>
+                      <td>${planet.name}</td>
+                      <td>${planet.iron.current_iron}</td>
+                      <td><button class="btn" @click="selectPlanet(planet)">Select Planet</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div> {% endcomment %}
+      </div>
+      <div v-if="selectedPlanet">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">${selectedPlanet.name}</h5>
+                <p class="category"><a href="">${selectedPlanet}</a></p>
+                <p class="category"><a href="">${selectedPlanet.iron.current_iron}</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </ul>
   </div>
 </div>
