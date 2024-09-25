@@ -244,11 +244,9 @@
       $('.collapse').not(target).collapse('hide');
     });
   });
-
-  // Verificar se o elemento canvas existe antes de executar o código relacionado ao gráfico
-  if (document.getElementById("chartBig1")) {
-    // Seu código para inicializar gráficos, se necessário
-  }
+  
 </script>
+
+{% include 'includes/global-scripts.html' %}
 
 {% endblock javascripts %}

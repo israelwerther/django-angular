@@ -62,63 +62,6 @@
 
 {% block javascripts %}
 
-
-
-{% comment %} <script>
-  var app = new Vue({
-    delimiters: ["${", "}"],
-    el: "#app",
-    data: {
-      planets: [],
-      selectedPlanet: null,
-      planetDetails: null,
-    },
-    mounted() {
-      this.fetchPlayerPlanets();
-    },
-    methods: {
-      fetchPlayerPlanets() {
-        axios
-          .get('{% url "api:users-list" %}')
-          .then((response) => {
-            const currentPlayer = response.data[0].current_player;
-            this.planets = currentPlayer.planets;
-
-            // Pegar o ID do planeta atual
-            const currentPlanetId = currentPlayer.current_planet;
-
-            // Buscar os detalhes do planeta com o ID
-            this.fetchPlanetDetails(currentPlanetId);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      },
-      fetchPlanetDetails(planetId) {
-        axios
-          .get(`/api/v1/planets/${planetId}/`)
-          .then((response) => {
-            this.planetDetails = response.data;
-            this.selectedPlanet = response.data;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      },
-      selectPlanet(planet) {
-        axios
-          .get(planet.urls.select)
-          .then((response) => {
-            this.selectedPlanet = response.data;
-            this.fetchPlanetDetails(planet.id);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      },
-    },
-  });
-</script> {% endcomment %}
-
+{% include 'includes/global-scripts.html' %}
 
 {% endblock javascripts %}
