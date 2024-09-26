@@ -8,15 +8,16 @@
       planets: [],
       selectedPlanet: null,
       planetDetails: null,
-      loading: true, // Estado de carregamento
+      loading: true,
       players: []
     },
     mounted() {
       this.fetchPlayerPlanets();
+      this.showPopover();
     },
     methods: {
       fetchPlayerPlanets() {
-        this.loading = true; // Inicia o carregamento
+        this.loading = true;
         axios
           .get('{% url "api:users-list" %}')
           .then((response) => {
@@ -62,18 +63,18 @@
             this.loading = false;
           });
       },
-      formatIron(value) {
-        return numeral(value).format('0.[0]a'); // Exemplo: 1k, 1.5k, 1M, etc.
+      compactNumber(value) {
+        return numeral(value).format('0.[0]a'); 
       },
-      formatIron(value) {
-        if (value >= 1000000) {
-          return (value / 1000000).toFixed(1) + 'M'; // Exemplo: 1.5M
-        } else if (value >= 1000) {
-          return (value / 1000).toFixed(1) + 'k'; // Exemplo: 1.5k
-        } else {
-          return value; // Menor que 1000, exibe normalmente
-        }
+      formatNumber(value) {
+        return numeral(value).format('0,0').replace(/,/g, '.');
+      },
+      showPopover() {
+        $(function () {
+          $('[data-toggle="popover"]').popover();
+        });
       }
+      
     },
   });
 </script>
