@@ -32,7 +32,7 @@
           </template>        
           <!-- Template para o valor do iron quando o planeta estiver selecionado -->
           <template v-else-if="selectedPlanet && selectedPlanet.iron">
-            <p class="small-text text-center">${ compactNumber(selectedPlanet.iron.current_iron) }</p>
+            <p class="small-text text-center text-uppercase">${ compactNumber(selectedPlanet.iron.current_iron) }</p>
           </template>          
         </li>
       </ul>
@@ -58,7 +58,7 @@
           </template>
         
           <template v-else-if="selectedPlanet && selectedPlanet.iron">
-            <p class="small-text text-center">${ compactNumber(selectedPlanet.iron.current_iron) }</p>
+            <p class="small-text text-center text-uppercase">${ compactNumber(selectedPlanet.iron.current_iron) }</p>
           </template>
           
           <template v-else>
