@@ -17,3 +17,9 @@ class Iron(BaseModel):
         generated_iron = int(time_diff.total_seconds() * iron_per_second)
 
         return self.quantity + generated_iron
+
+class IronMine(BaseModel):
+    level = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id)
