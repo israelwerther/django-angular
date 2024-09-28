@@ -24,6 +24,13 @@ class PlayerModelViewSet(viewsets.ModelViewSet):
         player = self.get_object()        
         user = request.user
         user.current_player = player
+        
+        home_planet = player.planets.filter(home_planet=True).first()
+        
+        if home_planet:
+            player.current_planet = home_planet
+            player.save()
+        
         user.save()
         serializer = self.get_serializer(player)
         return Response(serializer.data)
