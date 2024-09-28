@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Iron, IronMine
 
-admin.site.register(IronMine)
+from .models import Iron
+
 admin.site.register(Iron)

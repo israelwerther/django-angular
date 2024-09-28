@@ -9,7 +9,7 @@
       selectedPlanet: null,
       planetDetails: null,
       loading: true,
-      players: [],
+      players: []
     },
     mounted() {
       this.fetchPlayerPlanets();
@@ -64,16 +64,17 @@
           });
       },
       compactNumber(value) {
-        return numeral(value).format("0.[0]a");
+        return numeral(value).format('0.[0]a'); 
       },
       formatNumber(value) {
-        return numeral(value).format("0,0").replace(/,/g, ".");
+        return numeral(value).format('0,0').replace(/,/g, '.');
       },
       showPopover() {
         $(function () {
           $('[data-toggle="popover"]').popover();
         });
-      },
+      }
+      
     },
   });
 </script>
