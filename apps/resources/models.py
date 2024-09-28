@@ -1,9 +1,24 @@
 import datetime
 from django.db import models
 from apps.common.models import BaseModel
+from django_lifecycle import hook
+
+class IronMine(BaseModel):
+    level = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id)
 
 class Iron(BaseModel):
     quantity = models.IntegerField(default=0)
+    mine = models.OneToOneField(IronMine, on_delete=models.CASCADE, null=True, blank=True)
+
+    @hook('after_save')
+    def create_mine(instance, **kwargs):
+        if instance.pk is not None and instance.mine is None:
+            mine_obj = IronMine.objects.create()
+            instance.mine = mine_obj
+            instance.save()
     
     def __str__(self):
         return str(self.id)
@@ -17,9 +32,3 @@ class Iron(BaseModel):
         generated_iron = int(time_diff.total_seconds() * iron_per_second)
 
         return self.quantity + generated_iron
-
-class IronMine(BaseModel):
-    level = models.IntegerField(default=1)
-
-    def __str__(self):
-        return str(self.id)
