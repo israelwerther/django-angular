@@ -4,7 +4,7 @@ from apps.common.models import BaseModel
 from django_lifecycle import hook
 
 class IronMine(BaseModel):
-    level = models.IntegerField(default=1)
+    level = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
