@@ -15,6 +15,7 @@ from rest_framework.decorators import action
 class PlayerModelViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Player.objects.filter(user=self.request.user)
