@@ -3,7 +3,7 @@ from .models import Player
 from apps.planets.serializers import PlanetSerializer
 
 class PlayerSerializer(serializers.ModelSerializer):
-    urls = serializers.JSONField()
+    urls = serializers.JSONField(read_only=True)
     planets = PlanetSerializer(many=True, read_only=True) 
 
     class Meta:
