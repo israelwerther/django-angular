@@ -4,7 +4,7 @@ from django_lifecycle import hook
 import datetime
 
 class IronMine(BaseModel):
-    iron = models.OneToOneField('Iron', on_delete=models.CASCADE, related_name='mine')
+    planet = models.OneToOneField('planets.Planet', on_delete=models.CASCADE, related_name='iron_mine')
     level = models.IntegerField(default=0)
 
     def __str__(self):
@@ -12,12 +12,7 @@ class IronMine(BaseModel):
 
 class Iron(BaseModel):
     planet = models.OneToOneField('planets.Planet', on_delete=models.CASCADE, related_name='iron')
-    quantity = models.IntegerField(default=0)
-
-    @hook('after_save')
-    def create_mine_for_iron(instance, **kwargs):
-        if instance.pk is not None and not hasattr(instance, 'mine'):
-            IronMine.objects.create(iron=instance)
+    quantity = models.IntegerField(default=0)    
 
     def __str__(self):
         return str(self.id)
