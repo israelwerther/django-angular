@@ -7,7 +7,7 @@ from .models import Player
 
 class PlanetInline(admin.TabularInline):
     model = Planet
-    extra = 1  # Número de formulários em branco para adicionar novos planetas
+    extra = 1
 
 class PlayerAdmin(admin.ModelAdmin):
     inlines = [PlanetInline]
