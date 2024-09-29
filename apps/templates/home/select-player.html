@@ -1,84 +1,102 @@
 {% extends "layouts/base-fullscreen.html" %}
+{% block title %} Players {% endblock %}
 
-{% block title %} Login {% endblock %} 
-
-<!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
 <style>
-    .table-responsive {
-      overflow-x: hidden;
-      overflow-y: hidden;
-    }
-  </style>
+  .table-responsive {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+</style>
 {% endblock stylesheets %}
 
 {% block content %}
-
-<div class="content">  
-  <div class="row pt-5">
-    <div class="col-md-6 mt-5 offset-md-3 pt-5 mt-5">
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Tabela de jogadores -->
       <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Players</h4>
+        </div>
         <div class="card-body">
-          <blockquote>
-            <div class="card-header">
-              <h4 class="card-title"> Players</h4>
+          <div class="table-responsive">
+            <table class="table tablesorter" id="playerTable">
+              <thead class="text-primary">
+                <tr>
+                  <th class="text-center">#ID</th>
+                  <th>Name</th>
+                  <th class="text-center">Play</th>
+                </tr>
+              </thead>
+              <tbody id="playerTableBody">
+                <tr v-for="player in players" :key="player.id">
+                  <td class="text-center">${ player.id }</td>
+                  <td>${ player.name }</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-primary" @click="selectPlayer(player)">Play</button>
+                  </td>
+                </tr>
+                <tr v-if="players.length === 0">
+                  <td colspan="3" class="text-center">No players found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulário para criar novo jogador -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h4 class="card-title">Create New Player</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" @submit.prevent="createPlayer">
+            {% csrf_token %}
+            <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" v-model="newPlayer.name" required>
             </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table tablesorter" id="playerTable">
-                  <thead class="text-primary">
-                    <tr>
-                      <th>Name</th>
-                      <th class="text-center">Online</th>
-                    </tr>
-                  </thead>
-                  <tbody id="playerTableBody">
-                    <tr v-for="player in players" :key="player.id">
-                      <td class="text-center">${player.name}</td>
-                      <td class="text-center">
-                        <button type="submit" class="btn btn-primary" @click="selectPlayer(player)">Play</button>
-                      </td>
-                    </tr>
-                    <tr v-if="players.length === 0">
-                      <td colspan="2">No players found.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>    
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" v-model="newPlayer.username" required>
             </div>
-          </blockquote>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" v-model="newPlayer.email" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create Player</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 {% endblock content %}
 
-
 {% block javascripts %}
-
-
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-  {% comment %} axios.defaults.headers.common['X-CSRFToken'] = document.getElementById('csrf-token').value; {% endcomment %}
-
   var app = new Vue({
     delimiters: ['${', '}'],
     el: '#app',
     data: {
-			players: [],
+      players: [],
       newPlayer: {
         name: '',
         username: '',
-        email: ''
-      }
-		},
-    selectedPlayer: null,
+        email: '',
+        user: "{{ user.id }}"
+      },
+      token: document.querySelector('#csrf-token').value
+    },
     mounted() {
       this.fetchPlayers();
+      axios.defaults.headers.common['X-CSRFToken'] = this.token;
     },
     methods: {
       fetchPlayers() {
@@ -93,13 +111,14 @@
       createPlayer() {
         axios.post('{% url "api:players-list" %}', this.newPlayer)
           .then(response => {
-            
+            // Adiciona o novo jogador à lista de jogadores
             this.players.push(response.data);
-      
+            // Limpa o formulário
             this.newPlayer = {
               name: '',
               username: '',
-              email: ''
+              email: '',
+              user: "{{user.id}}",
             };
           })
           .catch(error => {
@@ -109,16 +128,13 @@
       selectPlayer(player) {
         axios.get(player.urls.select)
           .then(response => {
-              this.player = response.data;
-              window.location.href = "/";
+            window.location.href = "/";  // Redireciona para a página principal
           })
           .catch(error => {
-              console.error(error);
+            console.error(error);
           });
       }
     }
   });
-  
 </script>
-  
 {% endblock javascripts %}
