@@ -9,22 +9,31 @@
       selectedPlanet: null,
       planetDetails: null,
       loading: true,
-      players: []
+      players: [],
+      user: {
+        id: "{{ user.id }}",
+        urls: {
+            "select": "/api/v1/users/a8e2b915-c0ba-45a6-a6ab-e841c8314ffb/load_current_player/"
+        }
+      }
     },
-    mounted() {
-      this.fetchPlayerPlanets();
+    mounted() {     
       this.showPopover();
+      this.fetchPlayerPlanets();
     },
     methods: {
       fetchPlayerPlanets() {
         this.loading = true;
-        axios
-          .get('{% url "api:users-list" %}')
+        axios.get(`/api/v1/users/${this.user.id}/load_current_player/`)
           .then((response) => {
-            const currentPlayer = response.data[0].current_player;
-            this.planets = currentPlayer.planets;
-            const currentPlanetId = currentPlayer.current_planet;
-            this.fetchPlanetDetails(currentPlanetId);
+            const currentPlayer = response.data.current_player;
+            if (currentPlayer) {
+              this.planets = currentPlayer.planets;
+              const currentPlanetId = currentPlayer.current_planet;
+              this.fetchPlanetDetails(currentPlanetId);
+            } else {
+              console.log('No current player found');
+            }
           })
           .catch((error) => {
             console.error(error);
@@ -32,7 +41,7 @@
           .finally(() => {
             this.loading = false;
           });
-      },
+      }, 
       fetchPlanetDetails(planetId) {
         this.loading = true;
         axios
