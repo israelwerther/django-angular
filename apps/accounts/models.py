@@ -8,8 +8,8 @@ class User(AbstractUser):
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True)
     current_player = models.ForeignKey(Player, null=True, blank=True, on_delete=models.SET_NULL, related_name='current_user')
 
-    @property
-    def urls(self):
-        return {
-            "select": reverse("api:users-load-current-player", kwargs={ "pk": self.id })
-        }
+    # @property
+    # def urls(self):
+    #     return {
+    #         "select": reverse("api:users-load-current-player", kwargs={ "pk": self.id })
+    #     }

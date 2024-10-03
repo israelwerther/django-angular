@@ -7,10 +7,13 @@ from apps.planets.serializers import PlanetSerializer
 class UserSerializer(serializers.ModelSerializer):
     planets = PlanetSerializer(many=True, read_only=True) 
     current_player = PlayerSerializer(read_only=True) 
-    urls = serializers.JSONField()
+    # urls = serializers.JSONField()
 
     class Meta:
         model = User
         fields = (
-            'id', 'current_player', 'planets', 'urls'
+            'id',
+            'current_player',
+            'planets',
+            # 'urls'
         )

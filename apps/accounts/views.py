@@ -18,12 +18,12 @@ class UserModelViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
-    @action(detail=True, methods=['get'])
-    def load_current_player(self, request, pk=None):
-        user = get_object_or_404(User, pk=pk)
+    # @action(detail=True, methods=['get'])
+    # def load_current_player(self, request, pk=None):
+    #     user = get_object_or_404(User, pk=pk)
         
-        # Serializa o usuário e retorna os dados
-        serializer = self.get_serializer(user)
-        return Response(serializer.data)
+    #     # Serializa o usuário e retorna os dados
+    #     serializer = self.get_serializer(user)
+    #     return Response(serializer.data)
 
     
