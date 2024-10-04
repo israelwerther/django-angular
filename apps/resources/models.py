@@ -9,6 +9,11 @@ class IronMine(BaseModel):
 
     def __str__(self):
         return str(self.id)
+    
+    def resources_required_for_upgrade(self):
+        base_iron = 100
+        growth_factor = 1.5
+        return int(base_iron * (self.level + 1) ** growth_factor)
 
 class Iron(BaseModel):
     planet = models.OneToOneField('planets.Planet', on_delete=models.CASCADE, related_name='iron')

@@ -120,7 +120,7 @@
                         data-placement="top">
                     </a>
                   </p>
-                  <h6 class="text-center">Lv.1 Iron mine</h6>
+                  <h6 class="text-center">Lv. ${selectedPlanet?.iron_mine.level}</h6>
                   <div class="collapse" id="collapseExample-1">
                     <div class="mx-3">
                       <p>Cost</p>
@@ -128,7 +128,7 @@
                         <div class="d-flex flex-column align-items-center mr-2">
                           <img src="/static/assets/img/resources/iron.jpeg" style="width: 40px; height: 40px;"
                             alt="Iron" title="Iron">
-                          <p class="small-text">1000</p>
+                          <p class="small-text">${selectedPlanet?.iron_mine.resources_required_for_upgrade}</p>
                         </div>
                         <div class="d-flex flex-column align-items-center mr-2">
                           <img src="/static/assets/img/resources/iron.jpeg" style="width: 40px; height: 40px;"
