@@ -5,7 +5,7 @@ import datetime
 
 class IronMine(BaseModel):
     planet = models.OneToOneField('planets.Planet', on_delete=models.CASCADE, related_name='iron_mine')
-    level = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
 
     def __str__(self):
         return str(self.id)
