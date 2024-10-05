@@ -2,6 +2,7 @@ from django.db import models
 from apps.common.models import BaseModel
 from django_lifecycle import hook
 import datetime
+from django.urls import reverse
 
 class IronMine(BaseModel):
     planet = models.OneToOneField('planets.Planet', on_delete=models.CASCADE, related_name='iron_mine')
@@ -14,6 +15,12 @@ class IronMine(BaseModel):
         base_iron = 100
         growth_factor = 1.5
         return int(base_iron * (self.level + 1) ** growth_factor)
+    
+    @property
+    def urls(self):
+        return {
+            "select": reverse("api:resources-iron-mine-update-mine", kwargs={ "pk": self.id })
+        }
 
 class Iron(BaseModel):
     planet = models.OneToOneField('planets.Planet', on_delete=models.CASCADE, related_name='iron')
