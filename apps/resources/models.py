@@ -16,6 +16,12 @@ class IronMine(BaseModel):
         growth_factor = 1.5
         return int(base_iron * (self.level + 1) ** growth_factor)
     
+    def upgrade_duration(self):
+        base_time = 20
+        growth_factor = 1.2
+        duration_in_minutes = base_time * (self.level ** growth_factor)
+        return datetime.timedelta(minutes=duration_in_minutes)
+    
     @property
     def urls(self):
         return {
