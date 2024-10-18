@@ -81,8 +81,8 @@
         }
       }
     },
-    mounted() {     
-      this.showPopover();
+    mounted() {
+      globalApp.showPopover();
       this.fetchPlayerPlanets();
     },
     methods: {
@@ -143,12 +143,6 @@
       formatNumber(value) {
         return numeral(value).format('0,0').replace(/,/g, '.');
       },
-      showPopover() {
-        $(function () {
-          $('[data-toggle="popover"]').popover();
-        });
-      }
-      
     },
   });
 </script>
